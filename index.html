@@ -311,15 +311,15 @@
     function createCard (i) {
         let newCard = document.createElement('div');
 
-        let newCardText = document.createElement('span');
-        newCard.append(newCardText);
-        newCardText.textContent = allNewTextArea[i].value;
-        newCardText.contentEditable = 'true';
-        newCard.append(newCardText);
+        //let newCardText = document.createElement('span');
+        //newCard.append(newCardText);
+        //newCardText.textContent = allNewTextArea[i].value;
+        //newCardText.contentEditable = 'true';
+        //newCard.append(newCardText);
 
         newCard.classList.add('card');
         newCard.textContent = allNewTextArea[i].value;
-        newCard.contentEditable = 'true';
+        //newCard.contentEditable = 'true';
         newCard.draggable = true;
         newCard.id = Math.floor(Math.random()*Number.MAX_SAFE_INTEGER);
         newCard.ondragstart = dragCard;
