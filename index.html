@@ -50,7 +50,7 @@
         }
         .card-list span:focus {
             /*outline: 2px solid rgba(2, 106, 167,.5);*/
-             }
+        }
         .card{
             display: flex;
             justify-content: center;
@@ -62,6 +62,7 @@
             min-height: 40px;
             line-height: 15px;
             cursor: pointer;
+            outline: none;
         }
         .card:hover{
             /*background-color: #091e4214;*/
@@ -175,171 +176,172 @@
     </style>
 </head>
 <body>
-  <div class="container">
-      <div class="card-list">
-          <span contenteditable="true" class="title">To-do</span>
-          <div class="card" draggable="true" id="1"><span contenteditable="true"> Задача 1 </span></div>
-          <div class="card" draggable="true" id="2"><span> Задача 1 </span></div>
-          <div class="card" draggable="true" id="3"><span> Задача 1 </span></div>
-          <div class="new-card">
-              <textarea placeholder="Type new card"></textarea>
-              <button class="add-task"></button>
-              <button class="cancel-task"></button>
-          </div>
-          <div class="open-form">Add card</div>
+<div class="container">
+    <div class="card-list">
+        <span contenteditable="true" class="title">To-do</span>
+        <div class="card" draggable="true" id="1"><span contenteditable="true"> First example task </span></div>
+        <div class="card" draggable="true" id="2">2nd example task</div>
+        <div class="card" draggable="true" id="3">3rd example task</div>
+        <div class="new-card">
+            <textarea placeholder="Type new card"></textarea>
+            <button class="add-task"></button>
+            <button class="cancel-task"></button>
+        </div>
+        <div class="open-form">Add card</div>
 
-      </div>
-      <div class="card-list">
-          <span contenteditable="true" class="title">Doing</span>
-          <div class="new-card">
-              <textarea placeholder="Type new card"></textarea>
-              <button class="add-task"></button>
-              <button class="cancel-task"></button>
-          </div>
-          <div class="open-form">Add card</div>
-      </div>
-
-
-
-      <div class="card-list">
-          <span contenteditable="true" class="title">Done</span>
-          <div class="new-card">
-              <textarea placeholder="Type new card"></textarea>
-              <button class="add-task"></button>
-              <button class="cancel-task"></button>
-          </div>
-          <div class="open-form">Add card</div>
-      </div>
+    </div>
+    <div class="card-list">
+        <span contenteditable="true" class="title">Doing</span>
+        <div class="new-card">
+            <textarea placeholder="Type new card"></textarea>
+            <button class="add-task"></button>
+            <button class="cancel-task"></button>
+        </div>
+        <div class="open-form">Add card</div>
+    </div>
 
 
-  </div>
-  <script>
-      //Find and create arrays of all important elements for functionality
-      let allNewTextArea = document.querySelectorAll('.new-card textarea');
-      let allAddTaskBtn =document.querySelectorAll('.add-task');
-      let allCardList = document.querySelectorAll('.card-list');
-      let allCard = document.querySelectorAll('.card');
-      let allNewCard = document.querySelectorAll('.new-card');
-      let allOpenFormBtn = document.querySelectorAll('.open-form');
-      let allCancelTaskBtn = document.querySelectorAll('.cancel-task');
+
+    <div class="card-list">
+        <span contenteditable="true" class="title">Done</span>
+        <div class="new-card">
+            <textarea placeholder="Type new card"></textarea>
+            <button class="add-task"></button>
+            <button class="cancel-task"></button>
+        </div>
+        <div class="open-form">Add card</div>
+    </div>
 
 
-      for (let i = 0; i < allCardList.length; i++) {
-          allCardList[i].addEventListener('dragover', function (e){
-              e.preventDefault();
-              allCardList[i].style.filter = 'brightness(90%)';
-          })
-
-          allCardList[i].addEventListener('dragenter', function (e){
-              e.preventDefault();
-              // setTimeout(() => {
-              //     allCardList[i].style.filter = 'brightness(90%)';
-              // },0)
-          })
-
-          allCardList[i].addEventListener('dragleave', function (e){
-              e.preventDefault();
-              setTimeout(() => {
-                  allCardList[i].style.filter = 'brightness(100%)';
-              },0)
-          })
+</div>
+<script>
+    //Find and create arrays of all important elements for functionality
+    let allNewTextArea = document.querySelectorAll('.new-card textarea');
+    let allAddTaskBtn =document.querySelectorAll('.add-task');
+    let allCardList = document.querySelectorAll('.card-list');
+    let allCard = document.querySelectorAll('.card');
+    let allNewCard = document.querySelectorAll('.new-card');
+    let allOpenFormBtn = document.querySelectorAll('.open-form');
+    let allCancelTaskBtn = document.querySelectorAll('.cancel-task');
 
 
-          allCardList[i].addEventListener('drop', function (e) {
-              e.preventDefault();
-              let cardId = e.dataTransfer.getData('id');
-              let card = document.getElementById(cardId);
-              if ((e.target == allCardList[i]) || (e.target.parentNode == allCardList[i]) || (e.target.parentNode.parentNode == allCardList[i]) ) {
-                  allCardList[i].insertBefore(document.getElementById(cardId), allNewCard[i]);
-                  setTimeout(() => {
-                      card.style.display = 'flex';
-                      allCardList[i].style.filter = 'brightness(100%)';
+    for (let i = 0; i < allCardList.length; i++) {
+        allCardList[i].addEventListener('dragover', function (e){
+            e.preventDefault();
+            allCardList[i].style.filter = 'brightness(90%)';
+        })
 
-                  },0)
-              }
+        allCardList[i].addEventListener('dragenter', function (e){
+            e.preventDefault();
+            // setTimeout(() => {
+            //     allCardList[i].style.filter = 'brightness(90%)';
+            // },0)
+        })
 
-          });
-
-          allNewTextArea[i].addEventListener('change', function (e){
-              allNewTextArea[i] = e.target.value;
-          });
-
-          allNewTextArea[i].addEventListener('keydown', function (e){
-              if (e.code == 'Enter') {
-                  if (allNewTextArea[i].value == ''){
-                      e.preventDefault();
-                  }
-                  if (Number(allNewTextArea[i].value) != 0){
-                      createCard(i);
-                      e.preventDefault();
-                  }
-              }
-          })
-
-          allAddTaskBtn[i].addEventListener('click', function (e){
-              if (allNewTextArea[i].value != 0) {
-                 createCard(i);
-             }
-          });
-
-          allOpenFormBtn[i].addEventListener('click', function (e) {
-              allNewCard[i].style.display = 'block';
-              allOpenFormBtn[i].style.display = 'none';
-              allNewTextArea[i].focus();
+        allCardList[i].addEventListener('dragleave', function (e){
+            e.preventDefault();
+            setTimeout(() => {
+                allCardList[i].style.filter = 'brightness(100%)';
+            },0)
+        })
 
 
-          });
+        allCardList[i].addEventListener('drop', function (e) {
+            e.preventDefault();
+            let cardId = e.dataTransfer.getData('id');
+            let card = document.getElementById(cardId);
+            if ((e.target == allCardList[i]) || (e.target.parentNode == allCardList[i]) || (e.target.parentNode.parentNode == allCardList[i]) ) {
+                allCardList[i].insertBefore(document.getElementById(cardId), allNewCard[i]);
+                setTimeout(() => {
+                    card.style.display = 'flex';
+                    allCardList[i].style.filter = 'brightness(100%)';
 
-          allCancelTaskBtn[i].addEventListener('click', function (e) {
-              allNewTextArea[i].value = '';
-              allNewCard[i].style.display = 'none';
-              allOpenFormBtn[i].style.display = 'block';
-          })
-      }
+                },0)
+            }
+
+        });
+
+        allNewTextArea[i].addEventListener('change', function (e){
+            allNewTextArea[i] = e.target.value;
+        });
+
+        allNewTextArea[i].addEventListener('keydown', function (e){
+            if (e.code == 'Enter') {
+                if (allNewTextArea[i].value == ''){
+                    e.preventDefault();
+                }
+                if (Number(allNewTextArea[i].value) != 0){
+                    createCard(i);
+                    e.preventDefault();
+                }
+            }
+        })
+
+        allAddTaskBtn[i].addEventListener('click', function (e){
+            if (allNewTextArea[i].value != '') {
+                createCard(i);
+                allNewTextArea[i].focus();
+            }
+        });
+
+        allOpenFormBtn[i].addEventListener('click', function (e) {
+            allNewCard[i].style.display = 'block';
+            allOpenFormBtn[i].style.display = 'none';
+            allNewTextArea[i].focus();
 
 
-      allCard.forEach(card => {
-          card.ondragstart = dragCard;
-          card.ondblclick = () => {
-              if (confirm(`Delete this card: ${card.textContent} ?`)) card.remove();
-          }
-      });
-//This function create Card in cycle. Need to change this function, parameters.
-      function createCard (i) {
-          let newCard = document.createElement('div');
+        });
 
-          let newCardText = document.createElement('span');
-          newCard.append(newCardText);
-          newCardText.textContent = allNewTextArea[i].value;
-          newCardText.contentEditable = 'true';
-          newCard.append(newCardText);
+        allCancelTaskBtn[i].addEventListener('click', function (e) {
+            allNewTextArea[i].value = '';
+            allNewCard[i].style.display = 'none';
+            allOpenFormBtn[i].style.display = 'block';
 
-          newCard.classList.add('card');
-          newCard.textContent = allNewTextArea[i].value;
-          newCard.draggable = true;
-          newCard.id = Math.floor(Math.random()*Number.MAX_SAFE_INTEGER);
-          newCard.ondragstart = dragCard;
-          newCard.ondblclick = deleteCard;
-          let textCard = document.createElement('textarea');
-          textCard.value = newCard.textContent;
-          allCardList[i].insertBefore(newCard, allNewCard[i]);
-          allNewTextArea[i].value = '';
-      }
+        })
+    }
 
-      function deleteCard (e) {
-          let card = document.getElementById(e.target.id);
-          console.log(e.target.id);
-          if (confirm(`Delete this card: ${card.textContent} ?`)) card.remove();
-      }
-      function dragCard (e) {
-          e.dataTransfer.setData('id',e.target.id);
-          let card = document.getElementById(e.target.id);
-          setTimeout(() => {
-              card.style.display ='none';
-          }, 0);
 
-      }
-  </script>
+    allCard.forEach(card => {
+        card.ondragstart = dragCard;
+        card.ondblclick = () => {
+            if (confirm(`Delete this card: ${card.textContent} ?`)) card.remove();
+        }
+    });
+    //This function create Card in cycle. Need to change this function, parameters.
+    function createCard (i) {
+        let newCard = document.createElement('div');
+
+        let newCardText = document.createElement('span');
+        newCard.append(newCardText);
+        newCardText.textContent = allNewTextArea[i].value;
+        newCardText.contentEditable = 'true';
+        newCard.append(newCardText);
+
+        newCard.classList.add('card');
+        newCard.textContent = allNewTextArea[i].value;
+        newCard.contentEditable = 'true';
+        newCard.draggable = true;
+        newCard.id = Math.floor(Math.random()*Number.MAX_SAFE_INTEGER);
+        newCard.ondragstart = dragCard;
+        newCard.ondblclick = deleteCard;
+        allCardList[i].insertBefore(newCard, allNewCard[i]);
+        allNewTextArea[i].value = '';
+    }
+
+    function deleteCard (e) {
+        let card = document.getElementById(e.target.id);
+        console.log(e.target.id);
+        if (confirm(`Delete this card: ${card.textContent} ?`)) card.remove();
+    }
+    function dragCard (e) {
+        e.dataTransfer.setData('id',e.target.id);
+        let card = document.getElementById(e.target.id);
+        setTimeout(() => {
+            card.style.display ='none';
+        }, 0);
+
+    }
+</script>
 
 </body>
 </html>
